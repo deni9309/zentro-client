@@ -12,7 +12,12 @@ const SignIn = () => {
       <Button color='secondary' variant='contained'>
         Login
       </Button>
-      <Link component={NextLink} href='/signup' className='self-center underline-offset-2'>
+      <Link
+        component={NextLink}
+        color='textSecondary'
+        href='/signup'
+        className='self-center underline-offset-2'
+      >
         Don&apos;t have an account? <span className='font-bold'>Sign up</span>
       </Link>
     </Stack>

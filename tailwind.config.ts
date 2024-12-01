@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
 
 export default {
   content: [
@@ -22,6 +22,20 @@ export default {
           700: '#069677',
           800: '#068368',
           900: '#034b3c',
+        },
+        'z-mauve': {
+          50: '#f5e9f7',
+          200: '#ddb3e4',
+          500: '#ce93d8',
+          700: '#ab47bc',
+          900: '#674a6c',
+        },
+        'z-blue': {
+          1: '#90caf9',
+          2: '#42a5f5',
+        },
+        'z-dark': {
+          1: '#121212',
         },
       },
     },
