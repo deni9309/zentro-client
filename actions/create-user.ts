@@ -1,6 +1,6 @@
 'use server'
 
-//import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 import { post } from '../lib/fetch'
 import { AuthFormData, AuthFormSchema } from '@/schema/auth-form.schema'
@@ -16,7 +16,9 @@ export default async function createUser(data: AuthFormData) {
     validated.data
   )
 
-  if ('error' in result) return { error: result.error }
+  if ('error' in result) {
+    return { error: result.error }
+  }
 
-  return result
+  return redirect('/signin')
 }

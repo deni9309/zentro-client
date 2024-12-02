@@ -1,5 +1,5 @@
 export type ErrorResponse = {
-  message: string[]
+  message: string[] | string
   error: string
   statusCode: number
 }
@@ -10,4 +10,18 @@ export type AuthFormErrorState = {
   emailError?: string
   passwordError?: string
   otherError?: string
+}
+
+export type UserTokenPayload = {
+  tokenPayload: {
+    userId: string
+    email: string
+  }
+}
+
+export type User = {
+  userId: string
+  email: string
+  iat: number,
+  exp: number,
 }

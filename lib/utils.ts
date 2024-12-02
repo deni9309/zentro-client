@@ -37,10 +37,6 @@ export function getFormErrorMessage(response: any) {
   return obj
 }
 
-function formatErrorMessage(message: string) {
-  return message.charAt(0).toUpperCase() + message.slice(1)
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getErrorMessage = (response: any) => {
   if (response.message) {
@@ -49,5 +45,9 @@ export const getErrorMessage = (response: any) => {
     }
     return formatErrorMessage(response.message)
   }
-  return 'Unknown error occured.'
+  return 'An error occured. Please try again'
+}
+
+function formatErrorMessage(message: string) {
+  return message.charAt(0).toUpperCase() + message.slice(1)
 }

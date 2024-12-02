@@ -32,6 +32,7 @@ export default function SignUp() {
 
       if ('error' in result) {
         setHasError(result.error)
+        setIsSubmitting(false)
         return
       }
 
@@ -39,6 +40,7 @@ export default function SignUp() {
       router.push('/')
     } catch (_) {
       setHasError('An error occured')
+      setIsSubmitting(false)
     }
     setIsSubmitting(false)
   }
@@ -56,7 +58,8 @@ export default function SignUp() {
             !hasError && 'hidden'
           )}
         >
-          ! {hasError}gbbtt
+          <span className='font-bold text-red-400'>! </span>
+          {hasError}
         </p>
         <Controller
           name='email'
@@ -66,7 +69,7 @@ export default function SignUp() {
               label='Email'
               variant='outlined'
               type='email'
-              error={!!error}
+              error={!!error || hasError === 'Email already in use.'}
               value={value}
               onChange={onChange}
               helperText={error ? error.message : null}
