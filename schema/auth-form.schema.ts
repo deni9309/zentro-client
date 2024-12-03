@@ -1,7 +1,7 @@
 import * as z from 'zod'
 
 const passRegex = new RegExp(
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#\-_=+:;,./:<>?])[A-Za-z\d@$!%*?&^#\-_=+:;,./:<>?]{8,}$/
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#\-_=+:;,./:<>?])[A-Za-z\d@$!%*?&^#\-_=+:;,./:<>?]{8,}$/,
 )
 
 export const AuthFormSchema = z.object({

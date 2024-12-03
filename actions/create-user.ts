@@ -13,7 +13,7 @@ export default async function createUser(data: AuthFormData) {
 
   const result = await post<AuthFormData, { id: string; email: string }>(
     'api/users',
-    validated.data
+    validated.data,
   )
 
   if ('error' in result) {

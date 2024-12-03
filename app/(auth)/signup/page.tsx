@@ -47,28 +47,29 @@ export default function SignUp() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Stack spacing={2} className='w-full lg:max-w-sm max-w-xs'>
-        <h1 className='text-2xl text-center pb-6'>
-          Create your <span className='font-bold text-z-green-500'>ZENtro</span> account
+      <Stack spacing={2} className="w-full max-w-xs lg:max-w-sm">
+        <h1 className="pb-6 text-center text-2xl">
+          Create your <span className="font-bold text-z-green-500">ZENtro</span>{' '}
+          account
         </h1>
         <p
           className={cn(
-            'collapse -translate-y-[50%] ease-in-out opacity-0 text-red-200 p-4 rounded bg-z-mauve-900',
-            hasError && 'duration-700 translate-y-0 visible opacity-100',
-            !hasError && 'hidden'
+            'collapse -translate-y-[50%] rounded bg-z-mauve-900 p-4 text-red-200 opacity-0 ease-in-out',
+            hasError && 'visible translate-y-0 opacity-100 duration-700',
+            !hasError && 'hidden',
           )}
         >
-          <span className='font-bold text-red-400'>! </span>
+          <span className="font-bold text-red-400">! </span>
           {hasError}
         </p>
         <Controller
-          name='email'
+          name="email"
           control={form.control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextField
-              label='Email'
-              variant='outlined'
-              type='email'
+              label="Email"
+              variant="outlined"
+              type="email"
               error={!!error || hasError === 'Email already in use.'}
               value={value}
               onChange={onChange}
@@ -77,13 +78,13 @@ export default function SignUp() {
           )}
         />
         <Controller
-          name='password'
+          name="password"
           control={form.control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextField
-              label='Password'
-              variant='outlined'
-              type='password'
+              label="Password"
+              variant="outlined"
+              type="password"
               error={!!error}
               value={value}
               onChange={onChange}
@@ -92,16 +93,21 @@ export default function SignUp() {
           )}
         />
 
-        <Button disabled={isSubmitting} type='submit' color='secondary' variant='contained'>
+        <Button
+          disabled={isSubmitting}
+          type="submit"
+          color="secondary"
+          variant="contained"
+        >
           Sign Up
         </Button>
         <Link
           component={NextLink}
-          color='textSecondary'
-          href='/signin'
-          className='self-center underline-offset-2'
+          color="textSecondary"
+          href="/signin"
+          className="self-center underline-offset-2"
         >
-          Already have an account? <span className='font-bold'>Login</span>
+          Already have an account? <span className="font-bold">Login</span>
         </Link>
       </Stack>
     </form>

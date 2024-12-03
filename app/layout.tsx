@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
-import { Container, CssBaseline, ThemeProvider } from '@mui/material'
+import { Container, CssBaseline } from '@mui/material'
 
 import './globals.css'
-import darkTheme from './dark.theme'
+import Header from '@/components/header'
+import Providers from '@/providers/app-providers'
+import { authenticated } from '@/actions/get-current-user'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -35,15 +36,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const isAuthenticated = await authenticated()
+
   return (
-    <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={darkTheme}>
-            <CssBaseline />
-            <Container>{children}</Container>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Providers authenticated={isAuthenticated}>
+          <CssBaseline />
+          <Header />
+          <Container>{children}</Container>
+        </Providers>
       </body>
     </html>
   )

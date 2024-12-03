@@ -8,6 +8,7 @@ import { getHeaders } from '@/lib/fetch'
 import { getErrorMessage } from '@/lib/utils'
 import { AuthFormData, AuthFormSchema } from '@/schema/auth-form.schema'
 import { ErrorResponse } from '@/types'
+import { AUTHENTICATION_COOKIE } from '@/constants'
 
 export async function login(data: AuthFormData) {
   const validated = AuthFormSchema.safeParse(data)
@@ -15,11 +16,14 @@ export async function login(data: AuthFormData) {
     return { error: 'Invalid form data.' }
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...getHeaders() },
-    body: JSON.stringify(data),
-  })
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...getHeaders() },
+      body: JSON.stringify(data),
+    },
+  )
 
   if (!response.ok) {
     const errRes: ErrorResponse = await response.json()
@@ -36,7 +40,7 @@ const setAuthCookie = (response: Response) => {
     const token = setCookieHeader.split(';')[0].split('=')[1]
 
     cookies().set({
-      name: 'Authentication',
+      name: AUTHENTICATION_COOKIE,
       value: token,
       httpOnly: true,
       secure: true,

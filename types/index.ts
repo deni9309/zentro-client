@@ -22,6 +22,6 @@ export type UserTokenPayload = {
 export type User = {
   userId: string
   email: string
-  iat: number,
-  exp: number,
+  iat: number
+  exp: number
 }

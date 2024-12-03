@@ -3,7 +3,10 @@ import { cookies } from 'next/headers'
 import { ErrorResponse } from '@/types'
 import { getErrorMessage } from '@/lib/utils'
 
-export const post = async <T, K>(path: string, data: T): Promise<K | { error: string }> => {
+export const post = async <T, K>(
+  path: string,
+  data: T,
+): Promise<K | { error: string }> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...getHeaders() },
@@ -21,7 +24,7 @@ export const post = async <T, K>(path: string, data: T): Promise<K | { error: st
 export async function get<T>(
   path: string,
   params?: URLSearchParams,
-  tags?: string[]
+  tags?: string[],
 ): Promise<T | { error: string }> {
   const url = params
     ? `${process.env.NEXT_PUBLIC_API_URL}/${path}?${params}`

@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className='flex items-center font-extrabold tracking-widest justify-center h-screen animate-pulse text-white'>
+    <div className="flex h-screen animate-pulse items-center justify-center font-extrabold tracking-widest text-white">
       Loading...
     </div>
   )
