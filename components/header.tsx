@@ -1,26 +1,29 @@
 'use client'
 
-import { useState, useContext, MouseEvent } from 'react'
-//import Link from 'next/link'
+import { MouseEvent, useContext, useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket'
 import Menu from '@mui/material/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-import { ShoppingBasket, Menu as MenuIcon } from '@mui/icons-material'
+
 import { AuthContext } from '@/context/auth-context'
-import { privateRoutes, publicRoutes } from '@/constants/routes'
+import { publicRoutes, privateRoutes } from '@/constants/routes'
 import logout from '@/actions/auth/logout'
 
 export default function Header() {
+  const router = useRouter()
   const isAuthenticated = useContext(AuthContext)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
@@ -33,17 +36,19 @@ export default function Header() {
   }
 
   const pages = isAuthenticated ? privateRoutes : publicRoutes
-
+  console.log('pages', pages)
   return (
     <AppBar position="static" sx={{ mb: 4 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <ShoppingBasket sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <ShoppingBasketIcon
+            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+          />
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={Link}
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -90,16 +95,22 @@ export default function Header() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page, i) => (
-                <MenuItem key={page.path + i} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>
-                    {page.title}
-                  </Typography>
+              {pages.map((page) => (
+                <MenuItem
+                  key={page.title}
+                  onClick={() => {
+                    router.push(page.path)
+                    handleCloseNavMenu()
+                  }}
+                >
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <ShoppingBasket sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <ShoppingBasketIcon
+            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
+          />
           <Typography
             variant="h5"
             noWrap
@@ -125,10 +136,13 @@ export default function Header() {
             />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page, i) => (
+            {pages.map((page) => (
               <Button
-                key={page.path + i}
-                onClick={handleCloseNavMenu}
+                key={page.title}
+                onClick={() => {
+                  router.push(page.path)
+                  handleCloseNavMenu()
+                }}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.title}
@@ -142,8 +156,6 @@ export default function Header() {
     </AppBar>
   )
 }
-
-//{ logout }: { logout: () => Promise<void> }
 
 const Settings = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
