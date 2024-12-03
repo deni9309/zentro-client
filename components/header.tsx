@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { ShoppingBasket, Menu as MenuIcon } from '@mui/icons-material'
 import { AuthContext } from '@/context/auth-context'
 import { privateRoutes, publicRoutes } from '@/constants/routes'
+import logout from '@/actions/auth/logout'
 
 export default function Header() {
   const isAuthenticated = useContext(AuthContext)
@@ -142,6 +143,8 @@ export default function Header() {
   )
 }
 
+//{ logout }: { logout: () => Promise<void> }
+
 const Settings = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
@@ -179,7 +182,12 @@ const Settings = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={handleCloseUserMenu}>
+        <MenuItem
+          onClick={() => {
+            handleCloseUserMenu()
+            logout().then(() => {})
+          }}
+        >
           <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
         </MenuItem>
       </Menu>

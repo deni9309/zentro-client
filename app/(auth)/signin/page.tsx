@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 
-import { login } from '@/actions/login'
+import { login } from '@/actions/auth/login'
 import { AuthFormData, AuthFormSchema } from '@/schema/auth-form.schema'
 import { cn } from '@/lib/utils'
 

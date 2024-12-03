@@ -1,4 +1,4 @@
-import { getCurrentUser } from '@/actions/get-current-user'
+import { getCurrentUser } from '@/actions/auth/get-current-user'
 
 export default async function Home() {
   const user = await getCurrentUser()

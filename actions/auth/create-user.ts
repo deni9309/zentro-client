@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation'
 
-import { post } from '../lib/fetch'
+import { post } from '../../lib/fetch'
 import { AuthFormData, AuthFormSchema } from '@/schema/auth-form.schema'
 
 export default async function createUser(data: AuthFormData) {

@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import createUser from '@/actions/create-user'
+import createUser from '@/actions/auth/create-user'
 import { AuthFormData, AuthFormSchema } from '@/schema/auth-form.schema'
 import { cn } from '@/lib/utils'
 
