@@ -13,7 +13,7 @@ export const post = async <T, K>(
     body: JSON.stringify(data),
   })
 
-  if (!res.ok) {
+  if (!res.ok && res.status !== 201) {
     const errRes: ErrorResponse = await res.json()
     return { error: getErrorMessage(errRes) }
   }

@@ -20,5 +20,5 @@ export default async function createUser(data: AuthFormData) {
     return { error: result.error }
   }
 
-  return redirect('/signin')
+  redirect('/signin')
 }

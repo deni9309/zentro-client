@@ -39,7 +39,6 @@ export default function SignUp() {
       form.reset()
       router.push('/')
     } catch (_) {
-      setHasError('An error occured')
       setIsSubmitting(false)
     }
     setIsSubmitting(false)

@@ -29,9 +29,9 @@ export async function login(data: AuthFormData) {
     const errRes: ErrorResponse = await response.json()
     return { error: getErrorMessage(errRes) }
   }
-
   setAuthCookie(response)
-  return redirect('/')
+
+  redirect('/')
 }
 
 const setAuthCookie = (response: Response) => {

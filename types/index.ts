@@ -25,3 +25,18 @@ export type User = {
   iat: number
   exp: number
 }
+
+export type Product = {
+  id: string
+  name: string
+  description: string
+  price: number
+  userId: string
+}
+
+export type CreateProductProps = {
+  name: string
+  description: string
+  price: number
+  userId: string
+}

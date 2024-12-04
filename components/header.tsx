@@ -4,19 +4,21 @@ import { MouseEvent, useContext, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+  Container,
+  Button,
+  Avatar,
+  Box,
+  Tooltip,
+} from '@mui/material'
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket'
-import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
-import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
 
 import { AuthContext } from '@/context/auth-context'
 import { publicRoutes, privateRoutes } from '@/constants/routes'
@@ -36,7 +38,7 @@ export default function Header() {
   }
 
   const pages = isAuthenticated ? privateRoutes : publicRoutes
-  console.log('pages', pages)
+
   return (
     <AppBar position="static" sx={{ mb: 4 }}>
       <Container maxWidth="xl">

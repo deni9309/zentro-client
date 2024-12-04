@@ -37,7 +37,6 @@ const SignIn = () => {
       form.reset()
       setIsSubmitting(false)
     } catch (_) {
-      setHasError('An error occured')
       setIsSubmitting(false)
     }
   }
@@ -49,16 +48,17 @@ const SignIn = () => {
           Login to your{' '}
           <span className="font-bold text-z-green-500">ZENtro</span> account
         </h1>
-        <p
-          className={cn(
-            'collapse -translate-y-[50%] rounded bg-z-mauve-900 p-4 text-red-200 opacity-0 ease-in-out',
-            hasError && 'visible translate-y-0 opacity-100 duration-700',
-            !hasError && 'hidden',
-          )}
-        >
-          <span className="font-bold text-red-400">! </span>
-          {hasError}
-        </p>
+        {hasError && (
+          <p
+            className={cn(
+              'collapse -translate-y-[50%] rounded bg-z-mauve-900 p-4 text-red-200 opacity-0 ease-in-out',
+              hasError && 'visible translate-y-0 opacity-100 duration-700',
+            )}
+          >
+            <span className="font-bold text-red-400">! </span>
+            {hasError}
+          </p>
+        )}
         <Controller
           name="email"
           control={form.control}
