@@ -168,7 +168,7 @@ export default function CreateProductModal({
               color="secondary"
               variant="contained"
             >
-              Login
+              Submit
             </Button>
           </Stack>
         </form>

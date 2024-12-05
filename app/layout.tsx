@@ -1,12 +1,11 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { Container, CssBaseline } from '@mui/material'
+import { CssBaseline } from '@mui/material'
 
 import './globals.css'
 import Header from '@/components/header'
 import Providers from '@/providers/app-providers'
 import { authenticated } from '@/actions/auth/get-current-user'
-
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -47,7 +46,7 @@ export default async function RootLayout({
         <Providers authenticated={isAuthenticated}>
           <CssBaseline />
           <Header />
-          <Container>{children}</Container>
+          {children}
         </Providers>
       </body>
     </html>

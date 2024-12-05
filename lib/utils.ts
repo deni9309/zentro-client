@@ -62,7 +62,7 @@ export function formatDecimal(
     if (decimalParts.length > 1) {
       const integerPart = decimalParts[0]
       let decimalPart = decimalParts[1].slice(0, 2)
-      
+
       e.target.value = `${integerPart}.${decimalPart}`
     }
     if (e.target.value !== '.' && e.target.value.charAt(1))

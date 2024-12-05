@@ -1,15 +1,13 @@
 import { Box, Container } from '@mui/material'
 
-export default function AuthLayout({
+export default function ProductsLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
     <Container>
-      <Box className="flex h-screen items-center justify-center">
-        {children}
-      </Box>
+      <Box className="flex items-center justify-center">{children}</Box>
     </Container>
   )
 }

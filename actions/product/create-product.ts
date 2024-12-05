@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 
 import { post } from '@/lib/fetch'
 import {
@@ -27,7 +27,7 @@ export default async function createProduct(data: ProductFormData) {
   )
 
   if (!('error' in response)) {
-    revalidatePath('/')
+    revalidateTag('products')
   }
 
   return response

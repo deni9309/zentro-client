@@ -40,9 +40,9 @@ export default function Header() {
   const pages = isAuthenticated ? privateRoutes : publicRoutes
 
   return (
-    <AppBar position="static" sx={{ mb: 4 }}>
+    <AppBar position="static" sx={{ mb: 4, height: 80 }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters className="h-[80px] md:px-4">
           <ShoppingBasketIcon
             sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
           />
