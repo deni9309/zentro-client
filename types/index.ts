@@ -38,5 +38,5 @@ export type CreateProductProps = {
   name: string
   description: string
   price: number
-  userId: string
+  userId?: string
 }

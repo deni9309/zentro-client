@@ -3,4 +3,7 @@ export const publicRoutes = [
   { title: 'Sign Up', path: '/signup' },
 ]
 
-export const privateRoutes = [{ title: 'Home', path: '/' }]
+export const privateRoutes = [
+  { title: 'Home', path: '/' },
+  { title: 'Products', path: '/products' },
+]

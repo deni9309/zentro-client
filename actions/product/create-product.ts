@@ -7,7 +7,7 @@ import {
   ProductFormData,
   ProductFormSchema,
 } from '@/schema/product-form.schema'
-import { Product } from '@/types'
+import { CreateProductProps, Product } from '@/types'
 
 export default async function createProduct(data: ProductFormData) {
   const validated = ProductFormSchema.safeParse(data)
@@ -15,9 +15,15 @@ export default async function createProduct(data: ProductFormData) {
     return { error: 'Invalid form data.' }
   }
 
-  const response = await post<ProductFormData, Product[]>(
+  const productData = {
+    name: validated.data.name,
+    description: validated.data.description,
+    price: parseFloat(validated.data.price),
+  }
+
+  const response = await post<CreateProductProps, Product[]>(
     'api/products',
-    validated.data,
+    productData,
   )
 
   if (!('error' in response)) {

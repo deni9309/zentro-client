@@ -4,6 +4,7 @@ import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 import { AuthFormErrorState } from '@/types'
+import { ChangeEvent } from 'react'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -45,10 +46,27 @@ export const getErrorMessage = (response: any) => {
     }
     return formatErrorMessage(response.message)
   }
-  
+
   return 'An error occured. Please try again'
 }
 
 function formatErrorMessage(message: string) {
   return message.charAt(0).toUpperCase() + message.slice(1)
+}
+
+export function formatDecimal(
+  e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+) {
+  if (e.target.value !== '') {
+    const decimalParts = e.target.value.split('.')
+    if (decimalParts.length > 1) {
+      const integerPart = decimalParts[0]
+      let decimalPart = decimalParts[1].slice(0, 2)
+      
+      e.target.value = `${integerPart}.${decimalPart}`
+    }
+    if (e.target.value !== '.' && e.target.value.charAt(1))
+      e.target.value = parseFloat(e.target.value).toFixed(2)
+  }
+  return e
 }

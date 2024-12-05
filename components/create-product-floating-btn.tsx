@@ -5,7 +5,6 @@ import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
 import CreateProductModal from '@/components/create-product-modal'
-import { set } from 'zod'
 
 export default function CreateProductFloatingBtn() {
   const [isModalOpen, setIsModalOpen] = useState(false)

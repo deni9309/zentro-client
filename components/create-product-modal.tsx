@@ -3,21 +3,14 @@
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Box,
-  Button,
-  Modal,
-  Stack,
-  TextareaAutosize,
-  TextField,
-} from '@mui/material'
+import { Box, Button, Modal, Stack, TextField } from '@mui/material'
 
 import { CreateProductProps } from '@/types'
 import {
   ProductFormData,
   ProductFormSchema,
 } from '@/schema/product-form.schema'
-import { cn } from '@/lib/utils'
+import { cn, formatDecimal } from '@/lib/utils'
 import createProduct from '@/actions/product/create-product'
 
 const styles = {
@@ -55,7 +48,7 @@ export default function CreateProductModal({
     defaultValues: {
       name: '',
       description: '',
-      price: 0.1,
+      price: '0.00',
     },
   })
 
@@ -94,7 +87,10 @@ export default function CreateProductModal({
         >
           X
         </div>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='flex w-full max-w-md'>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex w-full max-w-md"
+        >
           <Stack spacing={2} className="w-full">
             <h1 className="pb-6 text-center text-2xl">Create Product</h1>
             {hasError && (
@@ -118,7 +114,6 @@ export default function CreateProductModal({
                 <TextField
                   label="Product Name"
                   variant="outlined"
-                  type="text"
                   error={!!error || hasError !== null}
                   value={value}
                   onChange={onChange}
@@ -129,28 +124,41 @@ export default function CreateProductModal({
             <Controller
               name="description"
               control={form.control}
-              rules={{
-                validate: {
-                  minLength: (value) => value.length >= 3,
-                  maxLength: (value) => value.length <= 600,
-                },
-              }}
               render={({
                 field: { onChange, value },
                 fieldState: { error },
               }) => (
                 <TextField
-                  label="Description"
+                  label="Short Description"
                   variant="outlined"
-                  type="text"
                   multiline
-                  maxRows={10}
+                  maxRows={6}
                   minRows={3}
                   value={value}
                   onChange={onChange}
                   error={!!error || hasError !== null}
                   helperText={error ? error.message : null}
-                  placeholder="Please, provide a short description for your product"
+                />
+              )}
+            />
+            <Controller
+              name="price"
+              control={form.control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  label="Price"
+                  variant="outlined"
+                  type="number"
+                  slotProps={{ htmlInput: { step: 0.01, min: 0.0 } }}
+                  error={!!error || hasError !== null}
+                  value={value}
+                  onChange={(e) => {
+                    onChange(formatDecimal(e))
+                  }}
+                  helperText={error ? error.message : null}
                 />
               )}
             />
