@@ -15,7 +15,8 @@ export default function CreateProductFloatingBtn() {
         open={isModalOpen}
         handleClose={() => setIsModalOpen(false)}
       />
-      <div className="absolute bottom-10 left-10">
+
+      <div className="fixed bottom-10 left-10 z-20">
         <Fab color="secondary" onClick={() => setIsModalOpen(true)}>
           <AddIcon />
         </Fab>

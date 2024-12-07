@@ -2,7 +2,7 @@
 
 import { MouseEvent, useContext, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import {
   AppBar,
@@ -23,8 +23,10 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { AuthContext } from '@/context/auth-context'
 import { publicRoutes, privateRoutes } from '@/constants/routes'
 import logout from '@/actions/auth/logout'
+import { cn } from '@/lib/utils'
 
 export default function Header() {
+  const pathname = usePathname()
   const router = useRouter()
   const isAuthenticated = useContext(AuthContext)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
@@ -40,7 +42,10 @@ export default function Header() {
   const pages = isAuthenticated ? privateRoutes : publicRoutes
 
   return (
-    <AppBar position="static" sx={{ mb: 4, height: 80 }}>
+    <AppBar
+      position="static"
+      className={cn('h-[80px]', pathname === '/' ? 'mb-0' : 'mb-6')}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters className="h-[80px] md:px-4">
           <ShoppingBasketIcon

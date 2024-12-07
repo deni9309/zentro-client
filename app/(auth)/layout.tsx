@@ -6,10 +6,8 @@ export default function AuthLayout({
   children: React.ReactNode
 }) {
   return (
-    <Container>
-      <Box className="flex h-screen items-center justify-center">
-        {children}
-      </Box>
+    <Container className="flex h-full min-h-[80vh] w-full flex-col items-center justify-center">
+      <Box>{children}</Box>
     </Container>
   )
 }

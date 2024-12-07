@@ -6,7 +6,7 @@ export default function ProductsLayout({
   children: React.ReactNode
 }) {
   return (
-    <Container>
+    <Container className="mt-10">
       <Box className="flex items-center justify-center">{children}</Box>
     </Container>
   )

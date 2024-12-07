@@ -1,6 +1,7 @@
+import Image from 'next/image'
+
 import { getCurrentUser } from '@/actions/auth/get-current-user'
 import CreateProductFloatingBtn from '@/components/create-product-floating-btn'
-import Image from 'next/image'
 
 export default async function Home() {
   const _user = await getCurrentUser()
@@ -31,8 +32,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      <CreateProductFloatingBtn />
+      <div className="ml-8 mt-10 max-lg:mb-10 sm:ml-20 lg:mt-12">
+        <CreateProductFloatingBtn />
+      </div>
     </>
   )
 }
