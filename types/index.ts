@@ -32,6 +32,7 @@ export type Product = {
   description: string
   price: number
   userId: string
+  // image?: File | undefined
 }
 
 export type CreateProductProps = {
@@ -39,4 +40,5 @@ export type CreateProductProps = {
   description: string
   price: number
   userId?: string
+  //image?: File | undefined
 }

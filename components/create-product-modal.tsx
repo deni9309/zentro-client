@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { CSSProperties, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Box, Button, Modal, Stack, TextField } from '@mui/material'
+import { Box, Button, Modal, Stack, TextField, Typography } from '@mui/material'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 
 import { CreateProductProps } from '@/types'
 import {
@@ -13,7 +14,7 @@ import {
 import { cn, formatDecimal } from '@/lib/utils'
 import createProduct from '@/actions/product/create-product'
 
-const styles = {
+const styles: CSSProperties = {
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -24,10 +25,21 @@ const styles = {
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  bgcolor: 'background.paper',
+  backgroundColor: 'background.paper',
   border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+  boxShadow: '24',
+  padding: 4,
+}
+const fileInputStyles: CSSProperties = {
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
 }
 
 interface CreateProductModalProps {
@@ -42,6 +54,8 @@ export default function CreateProductModal({
 }: CreateProductModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [hasError, setHasError] = useState<string | null>(null)
+  const [fileName, setFileName] = useState('')
+  const [file, setFile] = useState<File | undefined>(undefined)
 
   const form = useForm<ProductFormData>({
     resolver: zodResolver(ProductFormSchema),
@@ -56,15 +70,17 @@ export default function CreateProductModal({
     setIsSubmitting(true)
     setHasError(null)
     try {
-      const result = await createProduct(values)
+      const imageData = new FormData()
+      if (file) imageData.append('image', file)
+
+      const result = await createProduct(values, imageData)
 
       if ('error' in result) {
         setHasError(result.error)
         setIsSubmitting(false)
         return
       }
-
-      form.reset()
+      resetFormAndFile()
       setIsSubmitting(false)
     } catch (_) {
       setHasError('An error occured')
@@ -72,18 +88,28 @@ export default function CreateProductModal({
     }
   }
 
+  function resetFormAndFile() {
+    form.reset()
+    setFileName('')
+    setFile(undefined)
+  }
+
   return (
     <Modal
       open={open}
       onClose={(_e, reason) => {
         if (reason && reason === 'backdropClick') return
+        resetFormAndFile()
         handleClose()
       }}
     >
       <Box sx={styles}>
         <div
           className="absolute right-8 top-7 flex h-8 w-8 items-center justify-center rounded-full bg-zinc-800 text-xs duration-300 hover:cursor-pointer hover:bg-z-mauve-900"
-          onClick={handleClose}
+          onClick={() => {
+            resetFormAndFile()
+            handleClose()
+          }}
         >
           X
         </div>
@@ -162,6 +188,28 @@ export default function CreateProductModal({
                 />
               )}
             />
+
+            <Button
+              component="label"
+              variant="outlined"
+              startIcon={<CloudUploadIcon />}
+            >
+              Upload File
+              <input
+                name="image"
+                type="file"
+                hidden
+                style={fileInputStyles}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onChange={(e: any) => {
+                  setFile(e.target.files[0] || undefined)
+                  setFileName(e.target.files[0].name || '')
+                }}
+              />
+            </Button>
+
+            {fileName !== '' && <Typography>{fileName}</Typography>}
+
             <Button
               disabled={isSubmitting}
               type="submit"
