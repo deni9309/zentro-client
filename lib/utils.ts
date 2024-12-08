@@ -70,3 +70,7 @@ export function formatDecimal(
   }
   return e
 }
+
+export function getImageUrl(id: string) {
+  return `${process.env.NEXT_PUBLIC_API_URL}/products/${id}.jpg`
+}
