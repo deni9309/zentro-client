@@ -72,5 +72,5 @@ export function formatDecimal(
 }
 
 export function getImageUrl(id: string) {
-  return `${process.env.NEXT_PUBLIC_API_URL}/products/${id}.jpg`
+  return `${process.env.NEXT_PUBLIC_API_URL}/images/products/${id}.jpg`
 }

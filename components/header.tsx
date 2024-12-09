@@ -71,6 +71,7 @@ export default function Header() {
               alt="ZENtro Logo"
               width={524}
               height={143}
+              priority
               className="h-[24px] w-auto"
             />
           </Typography>

@@ -1,18 +1,14 @@
-import { Grid2, Stack } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import getProducts from '@/actions/product/get-products'
 import ProductCard from '@/components/product-card'
 import CreateProductFloatingBtn from '@/components/create-product-floating-btn'
+import CommonError from '@/components/common-error'
 
 export default async function Products() {
   const products = await getProducts()
 
-  if ('error' in products)
-    return (
-      <p className="flex h-[50vh] items-center text-center text-lg text-white/90">
-        {products.error}
-      </p>
-    )
+  if ('error' in products) return <CommonError message={products.error} />
 
   return (
     <div className="relative mb-5">

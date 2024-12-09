@@ -61,6 +61,7 @@ const SignIn = () => {
         )}
         <Controller
           name="email"
+          defaultValue=''
           control={form.control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextField
@@ -76,6 +77,7 @@ const SignIn = () => {
         />
         <Controller
           name="password"
+          defaultValue=""
           control={form.control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextField
