@@ -12,13 +12,19 @@ export default async function Products() {
 
   return (
     <div className="relative mb-5">
-      <Grid2 container spacing={3} sx={{ justifyContent: 'center' }}>
-        {products.map((product) => (
-          <Grid2 key={product.id} size={{ xs: 11, sm: 6, md: 5, lg: 4 }}>
-            <ProductCard product={product} />
-          </Grid2>
-        ))}
-      </Grid2>
+      <div className="mx-auto flex w-full justify-center max-md:max-w-md">
+        <Grid2
+          container
+          maxWidth={{ xs: '100%', md: '768px', lg: '1280px', sm: '640px' }}
+          spacing={3}
+        >
+          {products.map((product) => (
+            <Grid2 key={product.id} size={{ xs: 12, sm: 6, lg: 4 }}>
+              <ProductCard product={product} />
+            </Grid2>
+          ))}
+        </Grid2>
+      </div>
 
       <div className="mt-4 max-xl:mb-10">
         <CreateProductFloatingBtn />

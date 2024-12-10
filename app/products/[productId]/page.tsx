@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import getProductById from '@/actions/product/get-product-by-id'
 import CommonError from '@/components/common-error'
-import { getImageUrl } from '@/lib/utils'
+import { cn, getImageUrl } from '@/lib/utils'
 
 interface ProductProps {
   params: {
@@ -17,23 +17,37 @@ export default async function Product({ params: { productId } }: ProductProps) {
   if ('error' in product) return <CommonError message={product.error} />
 
   return (
-    <Card className="mb-3 p-10">
-      <div className="flex flex-col items-center justify-center gap-10 lg:flex-row">
-        {product.imageExists && (
-          <Image
-            src={getImageUrl(product.id)}
-            width={0}
-            height={0}
-            alt={product.name}
-            priority
-            sizes="90vw"
-            className="aspect-square h-full max-h-[400px] w-auto rounded-lg object-cover"
-          />
-        )}
+    <Card className="mb-8 p-10 max-xs:p-6">
+      <div className="flex flex-col items-center justify-center gap-10 lg:flex-row lg:items-stretch">
+        <span
+          className={cn(
+            product.imageExists
+              ? 'aspect-square h-full max-h-[400px] w-full'
+              : 'hidden',
+          )}
+        >
+          {product.imageExists && (
+            <Image
+              src={getImageUrl(product.id)}
+              width={0}
+              height={0}
+              alt={product.name}
+              priority
+              sizes="100vw"
+              className="h-full w-full rounded-lg object-cover"
+            />
+          )}
+        </span>
 
-        <Stack direction={'column'} gap={3}>
+        <Stack
+          direction={'column'}
+          className="w-full rounded-lg bg-z-dark-1 p-6"
+          gap={3}
+        >
           <Typography variant="h4">{product.name}</Typography>
-          <Typography variant="body1">{product.description}</Typography>
+          <Typography variant="body1" color="text.secondary">
+            {product.description}
+          </Typography>
           <Typography variant="h6">${product.price}</Typography>
         </Stack>
       </div>

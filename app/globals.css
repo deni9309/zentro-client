@@ -8,3 +8,10 @@
     --foreground: 0 0% 23%;
   }
 }
+
+@layer components {
+  /* ---------- Product card ------------ */
+  .after_black-line {
+    @apply after:mt-4 after:border-b-2 after:border-black after:content-[''];
+  }
+}
