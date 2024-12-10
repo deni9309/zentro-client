@@ -33,6 +33,7 @@ export type Product = {
   price: number
   userId: string
   imageExists: boolean
+  createdAt: Date
   // image?: File | undefined
 }
 

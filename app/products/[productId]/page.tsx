@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import getProductById from '@/actions/product/get-product-by-id'
 import CommonError from '@/components/common-error'
-import { cn, getImageUrl } from '@/lib/utils'
+import { cn, formatDate, getImageUrl } from '@/lib/utils'
 
 interface ProductProps {
   params: {
@@ -48,7 +48,8 @@ export default async function Product({ params: { productId } }: ProductProps) {
           <Typography variant="body1" color="text.secondary">
             {product.description}
           </Typography>
-          <Typography variant="h6">${product.price}</Typography>
+          <Typography className='border-y-2 p-4 border-zinc-800' variant="h6">${product.price}</Typography>
+          <Typography className='text-white/70 !text-sm bg-zinc-800/50 p-4 rounded'>Published on: {formatDate(product.createdAt)}</Typography>
         </Stack>
       </div>
     </Card>

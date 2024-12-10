@@ -74,3 +74,11 @@ export function formatDecimal(
 export function getImageUrl(id: string) {
   return `${process.env.NEXT_PUBLIC_API_URL}/images/products/${id}.jpg`
 }
+
+export function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
