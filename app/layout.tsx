@@ -5,7 +5,7 @@ import { CssBaseline } from '@mui/material'
 import './globals.css'
 import Header from '@/components/header'
 import Providers from '@/providers/app-providers'
-import { authenticated } from '@/actions/auth/get-current-user'
+import { authenticated, getCurrentUser } from '@/actions/auth/get-current-user'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -37,13 +37,15 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const isAuthenticated = await authenticated()
+  const response = await getCurrentUser()
+  const currentUser = 'error' in response ? null : response
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
-        <Providers authenticated={isAuthenticated}>
+        <Providers isAuthenticated={isAuthenticated} currentUser={currentUser}>
           <CssBaseline />
           <Header />
           {children}

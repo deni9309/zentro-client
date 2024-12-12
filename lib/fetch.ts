@@ -7,10 +7,12 @@ export const post = async <T, K>(
   path: string,
   data: T,
 ): Promise<K | { error: string }> => {
+  const body = data instanceof FormData ? Object.fromEntries(data) : data
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...getHeaders() },
-    body: JSON.stringify(data),
+    body: JSON.stringify(body),
   })
 
   if (!res.ok && res.status !== 201) {

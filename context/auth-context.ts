@@ -1,3 +1,13 @@
 import { createContext } from 'react'
 
-export const AuthContext = createContext(false)
+import { User } from '@/types'
+
+interface AuthContextProps {
+  isAuthenticated: boolean
+  currentUser: User | null
+}
+
+export const AuthContext = createContext<AuthContextProps>({
+  isAuthenticated: false,
+  currentUser: null,
+})

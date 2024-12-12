@@ -75,6 +75,10 @@ export function getImageUrl(id: string) {
   return `${process.env.NEXT_PUBLIC_API_URL}/images/products/${id}.jpg`
 }
 
+export function sliceEmail(email: string) {
+  return email.slice(0, email.indexOf('@'))
+}
+
 export function formatDate(date: Date) {
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',

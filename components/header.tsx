@@ -13,7 +13,6 @@ import {
   Typography,
   Container,
   Button,
-  Avatar,
   Box,
   Tooltip,
 } from '@mui/material'
@@ -23,12 +22,13 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { AuthContext } from '@/context/auth-context'
 import { publicRoutes, privateRoutes } from '@/constants/routes'
 import logout from '@/actions/auth/logout'
-import { cn } from '@/lib/utils'
+import { cn, sliceEmail } from '@/lib/utils'
+import { User } from '@/types'
 
 export default function Header() {
   const pathname = usePathname()
   const router = useRouter()
-  const isAuthenticated = useContext(AuthContext)
+  const { isAuthenticated, currentUser } = useContext(AuthContext)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
@@ -39,7 +39,7 @@ export default function Header() {
     setAnchorElNav(null)
   }
 
-  const pages = isAuthenticated ? privateRoutes : publicRoutes
+  const pages = isAuthenticated && currentUser ? privateRoutes : publicRoutes
 
   return (
     <AppBar
@@ -47,7 +47,7 @@ export default function Header() {
       className={cn('h-[80px]', pathname === '/' ? 'mb-0' : 'mb-6')}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters className="h-[80px] md:px-4">
+        <Toolbar disableGutters className="h-[80px] max-sm:px-0 md:px-4">
           <ShoppingBasketIcon
             sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
           />
@@ -158,14 +158,16 @@ export default function Header() {
             ))}
           </Box>
 
-          {isAuthenticated ? <Settings /> : null}
+          {isAuthenticated && currentUser ? (
+            <Settings user={currentUser} />
+          ) : null}
         </Toolbar>
       </Container>
     </AppBar>
   )
 }
 
-const Settings = () => {
+const Settings = ({ user }: { user: User }) => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -176,15 +178,23 @@ const Settings = () => {
   }
 
   return (
-    <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar
+    <Box className="flex w-fit items-center justify-center max-xs:flex-col">
+      <Tooltip title="Profile settings">
+        <Button
+          onClick={handleOpenUserMenu}
+          className="flex w-fit flex-wrap gap-1 rounded !p-2"
+        >
+          <p className="lowercase text-white/50 max-sm:text-xs">
+            {sliceEmail(user.email)}
+          </p>
+          <Image
             alt="Profile"
-            sx={{ width: '100%', padding: 1 }}
+            width={40}
+            height={40}
+            className="size-7 max-xs:size-5"
             src="/favicon.ico"
           />
-        </IconButton>
+        </Button>
       </Tooltip>
       <Menu
         sx={{ mt: '45px' }}

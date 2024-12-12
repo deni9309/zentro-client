@@ -5,18 +5,21 @@ import { ThemeProvider } from '@mui/material'
 
 import darkTheme from '@/app/dark.theme'
 import { AuthContext } from '@/context/auth-context'
+import { User } from '@/types'
 
 export default function Providers({
   children,
-  authenticated,
+  isAuthenticated,
+  currentUser,
 }: {
   children: React.ReactNode
-  authenticated: boolean
+  isAuthenticated: boolean
+  currentUser: User | null
 }) {
   return (
     <AppRouterCacheProvider>
       <ThemeProvider theme={darkTheme}>
-        <AuthContext.Provider value={authenticated}>
+        <AuthContext.Provider value={{ isAuthenticated, currentUser }}>
           {children}
         </AuthContext.Provider>
       </ThemeProvider>
