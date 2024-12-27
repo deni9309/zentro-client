@@ -17,8 +17,8 @@ export default function CheckoutButton({ productId }: { productId: string }) {
   return (
     <Button
       variant="contained"
-      color='secondary'
-      className="max-w-[25%]"
+      color="secondary"
+      className="max-w-[30%] max-sm:max-w-full xl:max-w-[25%]"
       onClick={handleCheckout}
     >
       Buy Now

@@ -4,5 +4,9 @@ import { get } from '@/lib/fetch'
 import { Product } from '@/types'
 
 export default async function getProducts() {
-  return get<Product[]>('api/products', undefined, ['products'])
+  return get<Product[]>(
+    'api/products',
+    new URLSearchParams({ status: 'available' }),
+    ['products'],
+  )
 }
