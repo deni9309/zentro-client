@@ -34,6 +34,7 @@ export type Product = {
   userId: string
   imageExists: boolean
   createdAt: Date
+  sold: boolean
   // image?: File | undefined
 }
 
@@ -44,7 +45,6 @@ export type CreateProductProps = {
   userId?: string
   //image?: File | undefined
 }
-
 
 export type StripeSession = {
   id: string
