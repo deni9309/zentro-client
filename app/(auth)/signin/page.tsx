@@ -45,8 +45,8 @@ const SignIn = () => {
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Stack spacing={2} className="w-full max-w-xs lg:max-w-sm">
         <h1 className="pb-6 text-center text-2xl">
-          Login to your{' '}
-          <span className="font-bold text-z-green-500">ZENtro</span> account
+          Login to your <span className="font-bold text-z-green-500">ZEN</span>
+          tro account
         </h1>
         {hasError && (
           <p

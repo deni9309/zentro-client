@@ -2,11 +2,12 @@
 
 import { useEffect } from 'react'
 import { Grid2 } from '@mui/material'
-import { io } from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 
 import { Product as TProduct } from '@/types'
 import ProductCard from '@/components/product-card'
 import revalidateProducts from '@/actions/product/revalidate-products'
+import getAuthentication from '@/actions/auth/get-authentication'
 
 interface ProductsGridProps {
   products: TProduct[]
@@ -14,12 +15,21 @@ interface ProductsGridProps {
 
 export default function ProductsGrid({ products }: ProductsGridProps) {
   useEffect(() => {
-    const socket = io(process.env.NEXT_PUBLIC_API_URL!)
+    let socket: Socket
+   
+    const createSocket = async () => {
+      socket = io(process.env.NEXT_PUBLIC_API_URL!, {
+        auth: {
+          Authentication: await getAuthentication(),
+        },
+      })
+      socket.on('productUpdated', () => {
+        revalidateProducts()
+      })
+    }
 
-    socket.on('productUpdated', () => {
-      revalidateProducts()
-    })
-
+    createSocket()
+    
     return () => {
       socket?.disconnect()
     }
