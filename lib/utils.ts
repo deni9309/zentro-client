@@ -71,8 +71,8 @@ export function formatDecimal(
   return e
 }
 
-export function getImageUrl(id: string) {
-  return `${process.env.NEXT_PUBLIC_API_URL}/images/products/${id}.jpg`
+export function getImageUrl(productId: string) {
+  return `${process.env.NEXT_PUBLIC_PRODUCT_IMAGE_URL}/${productId}.jpg`
 }
 
 export function sliceEmail(email: string) {
